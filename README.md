@@ -1,2 +1,2 @@
 # graphql-sandbox
- 
+
