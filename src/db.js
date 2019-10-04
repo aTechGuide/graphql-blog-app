@@ -24,7 +24,7 @@ const posts = [{
   id: '11',
   title: 'title2',
   body: 'body2',
-  published: true,
+  published: false,
   author: '1'
 }, {
   id: '12',
