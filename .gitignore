@@ -86,3 +86,7 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+
+## My Ignores
+prisma/docker-compose.yml

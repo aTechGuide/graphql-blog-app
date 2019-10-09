@@ -1,23 +1,35 @@
 const Query = {
-  users(parent, args, {db}, info) {
+  users(parent, args, {prisma}, info) {
 
-    if (!args.query) {
-      return db.users
+    const opArgs = {}
+
+    if (args.query) {
+      opArgs.where = {
+        OR: [{
+          name_contains: args.query
+        }, {
+          email_contains: args.query
+        }]
+      }
     }
 
-    return db.users.filter((user) => {
-      return user.name.toLowerCase().includes(args.query.toLowerCase())
-    })
+    return prisma.query.users(opArgs, info)
   },
-  posts(parent, args, {db}, info) {
+  posts(parent, args, {prisma}, info) {
 
-    if (!args.query) {
-      return db.posts
+    const opArgs = {}
+
+    if (args.query) {
+      opArgs.where = {
+        OR: [{
+          title_contains: args.query
+        }, {
+          body_contains: args.query
+        }]
+      }
     }
 
-    return db.posts.filter((post) => {
-      return post.title.toLowerCase().includes(args.query.toLowerCase()) || post.body.toLowerCase().includes(args.query.toLowerCase())
-    })
+    return prisma.query.posts(null, info)
   },
   me() {
     return {
