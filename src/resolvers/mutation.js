@@ -1,15 +1,21 @@
-import uuidv4 from 'uuid/v4';
+import bcrypt from 'bcryptjs';
 
 const Mutation = {
   async createUser(parent, args, {prisma}, info) {
 
-    const emailTaken = await prisma.exists.User({ email: args.data.email })
-    
-    if(emailTaken) {
-      throw new Error('Email Taken')
+    if(args.data.password.length < 8) {
+      throw new Error('Password Must be 8 char or longer')
     }
 
-    return prisma.mutation.createUser({ data: args.data }, info)
+    // Salt is a random series of characters that are hashed along with string we are hashing
+    const password = await bcrypt.hash(args.data.password, 10)
+
+    return prisma.mutation.createUser({ 
+        data: {
+          ...args.data,
+          password
+        } 
+      }, info)
   },
   async deleteUser(parent, args, {prisma}, info) {
 
