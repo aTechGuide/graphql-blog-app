@@ -1,9 +1,11 @@
 # graphql-sandbox
 This app provides following functionality
 
-- Allows user to SignUp and SignIn
-- Allows user to create, update and delete a post
-- Allows user to comment on a post
+- Allows clients to SignUp and SignIn
+- Allows authenticated clients to Fetch their profile
+- Allows authenticated clients to create, update and delete their post
+- Allows client to fetch all the `published` posts and authenticated users to fetch the drafts
+- Allows clients to comment on a post
 
 # Tech Stack
 - GraphQL (using graphql-yoga)
