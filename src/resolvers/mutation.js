@@ -15,6 +15,7 @@ const Mutation = {
     // In short verify makes sure that tokens we are reading are tokens created by us
     jwt.verify
 
+    // Without info we only receive scalar values
     const user = await prisma.mutation.createUser({ 
         data: {
           ...args.data,
@@ -26,6 +27,31 @@ const Mutation = {
       user,
       token: jwt.sign({userId: user.id}, 'thisisasecret')
     }
+  },
+  async login(parent, args, {prisma}, info) {
+
+    const user = await prisma.query.user({
+      where: {
+        email: args.data.email
+      }
+    })
+
+    if(!user) {
+      throw new Error('Unable to login')
+    }
+
+    const isMatch = await bcrypt.compare(args.data.password, user.password)
+
+    if(!isMatch) {
+      throw new Error('Unable to login')
+    }
+
+    return {
+      user,
+      token: jwt.sign({userId: user.id}, 'thisisasecret')
+    }
+
+
   },
   async deleteUser(parent, args, {prisma}, info) {
 
