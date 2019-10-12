@@ -1,22 +1,13 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 import getUserId from '../utils/getUserId';
 import generateToken from '../utils/generateToken';
+import hashPassword from '../utils/hashPassword';
 
 const Mutation = {
   async createUser(parent, args, {prisma}, info) {
 
-    if(args.data.password.length < 8) {
-      throw new Error('Password Must be 8 char or longer')
-    }
-
-    // Salt is a random series of characters that are hashed along with string we are hashing
-    const password = await bcrypt.hash(args.data.password, 10)
-
-    // It decodes token + Verify that token is created with a specifc secret
-    // In short verify makes sure that tokens we are reading are tokens created by us
-    jwt.verify
+    const password = await hashPassword(args.data.password)
 
     // Without info we only receive scalar values
     const user = await prisma.mutation.createUser({ 
@@ -67,6 +58,10 @@ const Mutation = {
   async updateUser(parent, args, {prisma, request}, info)  {
 
     const userId = getUserId(request)
+
+    if(typeof args.data.password === 'string') {
+      args.data.password = await hashPassword(args.data.password)
+    }
 
     return prisma.mutation.updateUser({
       where: {
