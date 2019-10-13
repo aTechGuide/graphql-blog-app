@@ -9,6 +9,8 @@ This app provides following functionality
 - Pagination Support
 - Sorting Support
 
+Production Instance [Link](https://fierce-castle-27103.herokuapp.com/)
+
 # Hosting
 Hosted via Prisma Cloud and Heroku
 
