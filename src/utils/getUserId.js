@@ -9,7 +9,7 @@ const getUserId = (request, requireAuth = true) => {
 
     // It decodes token + Verify that token is created with a specifc secret
     // In short verify makes sure that tokens we are reading are tokens created by us
-    const decoded = jwt.verify(token, 'thisisasecret')
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
     return decoded.userId   
   }
 
