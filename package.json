@@ -15,6 +15,7 @@
     "prisma"
   ],
   "jest": {
+    "testEnvironment": "node",
     "globalSetup": "./tests/jest/globalSetup.js",
     "globalTeardown": "./tests/jest/globalTeardown.js"
   },

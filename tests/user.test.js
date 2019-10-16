@@ -7,8 +7,8 @@ const client = new ApolloBoost({
   uri: 'http://localhost:4000'
 })
 
-beforeEach( async () => {
-  jest.setTimeout(10000);
+beforeAll( async () => {
+  jest.setTimeout(100000);
   await prisma.mutation.deleteManyUsers()
   await prisma.mutation.deleteManyPosts()
 
@@ -96,7 +96,7 @@ test('Should expose public author profile', async () => {
   })
 
   const users = response.data.users
-  expect(users.length).toBe(1)
+  expect(users.length).toBe(2)
   expect(users[0].email).toBe(null)
   expect(users[0].name).toBe('Jen')
 
@@ -123,5 +123,49 @@ test('Should expose public posts', async () => {
   expect(posts[0].title).toBe('Test Post 1')
   expect(posts[0].body).toBe('Test Published Post 1 Body')
   expect(posts[0].published).toBe(true)
+
+})
+
+test('should not login with bad credentials', async () => {
+
+  const login = gql`
+    mutation {
+      login(
+        data: {
+          email: "jeff@example.com",
+          password: ""
+        }
+      )
+      {
+        token
+      }
+    }
+  `
+
+  await expect(client.mutate({
+    mutation: login
+  })).rejects.toThrow()
+  
+})
+
+test('Should NOT sign up user with invalid password', async () => {
+
+  const createUser = gql`
+    mutation {
+      createUser(
+        data: {
+          name: "sarah",
+          email: "sarah@example.com",
+          password: "123"
+        }
+      ) {
+        token
+      }
+    }
+  `
+
+  await expect(client.mutate({
+    mutation: createUser
+  })).rejects.toThrow()
 
 })
