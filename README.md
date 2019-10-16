@@ -22,7 +22,12 @@ Hosted via Prisma Cloud and Heroku
 
 # Commands
 ## Deployment 
-- Test: `prisma deploy -e ../config/dev.env`
+- Dev: `prisma deploy -e ../config/dev.env`
+- Test: `prisma deploy -e ../config/test.env`
 - Prod: `prisma deploy -e ../config/prod.env`
+
+## Start your Prisma server
+- `cd prisma`
+- `docker-compose up -d`
 
 
