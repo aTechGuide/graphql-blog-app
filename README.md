@@ -1,4 +1,4 @@
-# graphql-sandbox
+# Graphql Blog App
 This app provides following functionality
 
 - Allows clients to SignUp and SignIn
