@@ -32,4 +32,7 @@ Hosted via Prisma Cloud and Heroku
 - `cd prisma`
 - `docker-compose up -d`
 
+# Reference
+- This project was built as a part of [The Modern GraphQL Bootcamp (with Node.js and Apollo)](https://www.udemy.com/course/graphql-bootcamp/) Udemy course by Andrew Mead
+
 
