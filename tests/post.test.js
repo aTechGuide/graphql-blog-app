@@ -1,13 +1,12 @@
 import 'cross-fetch/polyfill';
-import {gql} from 'apollo-boost';
 import prisma from '../src/prisma';
-import seedBdatabase, {userOne, postOne, postTwo} from './utils/seedDB';
+import seeddatabase, {userOne, postOne, postTwo} from './utils/seedDB';
 import getClient from './utils/getClient';
 import {getPosts, myPosts, updatePost, createPost, deletePost} from './utils/operations';
 
 const client = getClient()
 
-beforeAll(seedBdatabase)
+beforeAll(seeddatabase)
 
 test('Should expose public posts', async () => {
 

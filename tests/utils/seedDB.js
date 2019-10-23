@@ -12,6 +12,16 @@ const userOne = {
   jwt: undefined
 }
 
+const userTwo = {
+  input: {
+    name: 'Jeff',
+      email: 'jeff@example.com',
+      password: bcrypt.hashSync('PassForJeff')
+  },
+  user: undefined,
+  jwt: undefined
+}
+
 const postOne = {
   input: {
     title: 'Test Post 1',
@@ -30,11 +40,26 @@ const postTwo = {
   post: undefined
 }
 
-const seedBdatabase = async () => {
+const commentOne = {
+  input: {
+    text: "Geat post, Thanks for sharing!"
+  },
+  comment: undefined
+}
+
+const commentTwo = {
+  input: {
+    text: "I am glad you enjoyed it."
+  },
+  comment: undefined
+}
+
+const seeddatabase = async () => {
 
   jest.setTimeout(100000);
 
   // Delete Test Data
+  await prisma.mutation.deleteManyComments()
   await prisma.mutation.deleteManyUsers()
   await prisma.mutation.deleteManyPosts()
 
@@ -44,7 +69,14 @@ const seedBdatabase = async () => {
     data: userOne.input
   })
 
-    userOne.jwt = jwt.sign({userId: userOne.user.id }, process.env.JWT_SECRET)
+  userOne.jwt = jwt.sign({userId: userOne.user.id }, process.env.JWT_SECRET)
+
+  // Create UserTwo
+  userTwo.user = await prisma.mutation.createUser({
+    data: userTwo.input
+  })
+
+  userTwo.jwt = jwt.sign({userId: userTwo.user.id }, process.env.JWT_SECRET)
 
 
   // create post one
@@ -70,6 +102,39 @@ const seedBdatabase = async () => {
       }
     }
   })
+
+  // create comment one
+  commentOne.comment = await prisma.mutation.createComment({
+    data: {
+      ...commentOne.input,
+      author: {
+        connect: {
+          id: userTwo.user.id
+        }
+      },
+      post: {
+        connect: {
+          id: postOne.post.id
+        }
+      }
+    }
+  })
+
+  commentTwo.comment = await prisma.mutation.createComment({
+    data: {
+      ...commentTwo.input,
+      author: {
+        connect: {
+          id: userOne.user.id
+        }
+      },
+      post: {
+        connect: {
+          id: postOne.post.id
+        }
+      }
+    }
+  })
 }
 
-export { seedBdatabase as default, userOne, postOne, postTwo}
+export { seeddatabase as default, userOne, userTwo, postOne, postTwo, commentOne, commentTwo}

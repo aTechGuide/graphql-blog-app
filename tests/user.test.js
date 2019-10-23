@@ -1,12 +1,12 @@
 import 'cross-fetch/polyfill';
 import prisma from '../src/prisma';
-import seedBdatabase, {userOne} from './utils/seedDB';
+import seeddatabase, {userOne} from './utils/seedDB';
 import getClient from './utils/getClient';
 import {createUser, login, getUsers, getProfile} from './utils/operations';
 
 const client = getClient()
 
-beforeAll(seedBdatabase)
+beforeAll(seeddatabase)
 
 test('Should create a new User', async () => {
 
@@ -38,7 +38,7 @@ test('Should expose public author profile', async () => {
   })
 
   const users = response.data.users
-  expect(users.length).toBe(2)
+  expect(users.length).toBe(3)
   expect(users[0].email).toBe(null)
   expect(users[0].name).toBe('Jen')
 
