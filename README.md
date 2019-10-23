@@ -9,10 +9,12 @@ This app provides following functionality
 - Pagination Support
 - Sorting Support
 
-Production Instance [Link](https://fierce-castle-27103.herokuapp.com/)
-
 # Hosting
 Hosted via Prisma Cloud and Heroku
+
+# Links
+- Production Instance [Link](https://fierce-castle-27103.herokuapp.com/)
+- Local Instance [Link](http://localhost:4000)
 
 # Tech Stack
 - GraphQL (using graphql-yoga)
