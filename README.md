@@ -36,7 +36,6 @@ Hosted via Prisma Cloud and Heroku
   - Stopping Services: `docker-compose stop`
   - Killing Container: `docker-compose kill`
   - Removing Stopped Containers: `docker-compose rm`
-  - 
 
 - Deploy the prisma Datamodel. From inside `prisma` folder run
   - Dev: `prisma deploy -e ../config/dev.env`
