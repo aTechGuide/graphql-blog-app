@@ -89,6 +89,6 @@ typings/
 
 
 ## My Ignores
-prisma/docker-compose.yml
+prisma/.env
 dist/*
 prod.env

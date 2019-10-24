@@ -22,15 +22,32 @@ Hosted via Prisma Cloud and Heroku
 - Prisma Cloud
 - JWT
 
-# Commands
-## Deployment 
-- Dev: `prisma deploy -e ../config/dev.env`
-- Test: `prisma deploy -e ../config/test.env`
-- Prod: `prisma deploy -e ../config/prod.env`
+# Getting Started
+- Launch Prisma and database
+  - Create a `.env` file under `prisma` folder with following environment variables
+  ```
+    POSTGRES_HOST=<postgres-hostname>
+    POSTGRES_DATABASE=<postgres-database>
+    POSTGRES_USER=<postgres-user>
+    POSTGRES_PASSWORD=<postgres-password>
+  ```
+  - `cd prisma`
+  - `docker-compose up -d`
 
-## Start your Prisma server
-- `cd prisma`
-- `docker-compose up -d`
+- Deploy the prisma Datamodel. From inside `prisma` folder run
+  - Dev: `prisma deploy -e ../config/dev.env`
+  - Test: `prisma deploy -e ../config/test.env`
+  - Prod: `prisma deploy -e ../config/prod.env`
+
+- Install the node dependencies
+  - `npm install`
+
+- Generate the Schema Dependencies
+  - Run `npm run get-schema`
+
+- Run the App
+  - DEV: `npm run dev`
+  - TEST: `npm run test`
 
 # Reference
 - This project was built as a part of [The Modern GraphQL Bootcamp (with Node.js and Apollo)](https://www.udemy.com/course/graphql-bootcamp/) Udemy course by Andrew Mead
